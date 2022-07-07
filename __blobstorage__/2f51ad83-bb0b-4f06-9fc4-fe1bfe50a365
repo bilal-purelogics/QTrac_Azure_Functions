@@ -1,0 +1,43 @@
+{
+  "masterKey": {
+    "name": "master",
+    "value": "5ObjCZOZ0lKEur2fNXKB_QkbcRj7c-BmWIcm5pf7j5T6AzFuHSqK-g==",
+    "encrypted": false
+  },
+  "functionKeys": [
+    {
+      "name": "default",
+      "value": "LIEyWgLuUTX85Rd5RimVvNW163q6JNEtPMDX2eE8HadcAzFu2vbbkQ==",
+      "encrypted": false
+    }
+  ],
+  "systemKeys": [],
+  "hostName": "localhost:7071",
+  "instanceId": "0000000000000000000000009140346C",
+  "source": "runtime",
+  "decryptionKeyId": ""
+}{
+  "masterKey": {
+    "name": "master",
+    "value": "5ObjCZOZ0lKEur2fNXKB_QkbcRj7c-BmWIcm5pf7j5T6AzFuHSqK-g==",
+    "encrypted": false
+  },
+  "functionKeys": [
+    {
+      "name": "default",
+      "value": "LIEyWgLuUTX85Rd5RimVvNW163q6JNEtPMDX2eE8HadcAzFu2vbbkQ==",
+      "encrypted": false
+    }
+  ],
+  "systemKeys": [
+    {
+      "name": "durabletask_extension",
+      "value": "R_7sYsBhGttgu_QIRGYAGqotkM1SHvDl_wapU8OUhwZ6AzFuK2GflQ==",
+      "encrypted": false
+    }
+  ],
+  "hostName": "localhost:7071",
+  "instanceId": "0000000000000000000000009140346C",
+  "source": "runtime",
+  "decryptionKeyId": ""
+}{}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":0}

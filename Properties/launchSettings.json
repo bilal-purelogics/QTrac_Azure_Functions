@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "qtracvrx_backend_dotnet_azure_ticketing": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7089",
+      "launchBrowser": false
+    }
+  }
+}
