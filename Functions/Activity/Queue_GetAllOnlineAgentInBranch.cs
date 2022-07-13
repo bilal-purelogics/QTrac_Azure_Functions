@@ -39,13 +39,13 @@ namespace Lavi.QueueManager
                 .Where(f => f.type=="UserRole" && f.roleId.Equals(rolesToFetchIfAny)).AsEnumerable();
             
             var userList= users.ToList();
+            
+            Agent[] agents=null;
             foreach(var item in userList)
             {
               QueueManager.MapUserToAgent(item,UserRoles);
             }
 
-            //Need to implement logic yet
-            Agent[] agents=null;
             return  agents;
 
         }

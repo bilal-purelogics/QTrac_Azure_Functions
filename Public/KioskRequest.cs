@@ -25,6 +25,8 @@ namespace LAVI.QueueManager
 
         [JsonProperty("companyId")]
         public string companyId { get; set; }
+        [JsonProperty("servingAgentId")]
+        public string servingAgentId { get; set; }
         
     }
     public partial class Workflow
@@ -35,6 +37,8 @@ namespace LAVI.QueueManager
         public IncomingWorkflowEstimateWaitSettings incomingWorkflowEstimateWaitSettings { get; set; }
         [JsonProperty("services")]
         public Services services { get; set; }
+        [JsonProperty("queue")]
+        public Queue[] queue { get; set; }
         
     }
     public partial class Services
@@ -45,4 +49,40 @@ namespace LAVI.QueueManager
         public int averageWaitTime { get; set; }
         
     }
+
+    public class Queue {
+    
+        [JsonProperty("id")]
+        public string Id;
+        
+        [JsonProperty("name")]
+        public string Name;
+        
+        [JsonProperty("numberingRule")]
+        public NumberingRule NumberingRule;
+        
+        [JsonProperty("averageWaitTime")]
+        public int AverageWaitTime;
+        
+        [JsonProperty("isDeleted")]
+        public bool IsDeleted;
+        
+        [JsonProperty("priority")]
+        public int Priority;
+    
+    }
+    
+    public class NumberingRule {
+
+        [JsonProperty("prefix")]
+        public string Prefix;
+
+        [JsonProperty("middlefix")]
+        public string Middlefix;
+
+        [JsonProperty("postfix")]
+        public string Postfix;
+
+    }
+    
 }

@@ -15,10 +15,25 @@ namespace Lavi.QueueManager
         {
             return 0;
         }
-        public static Agent MapUserToAgent(UserModel users, IEnumerable<UserRole> userRoles)
+        public static Agent MapUserToAgent(UserModel user, IEnumerable<UserRole> userRoles)
         {
-            Agent a = new Agent();
-            return a;
+            Agent agent=null;
+            if(user.isOverride)
+            {
+                agent=new Agent{agentId=user.id,companyId=user.companyId,busyTillTimeInMilliseconds=0,customersInServing=null,queueIds=null};
+            }
+            else
+            {
+                agent=new Agent{agentId=user.id,companyId=user.companyId,busyTillTimeInMilliseconds=0,customersInServing=null,queueIds=null};
+            }
+            return agent;
+        }
+        public static int GetCustomerCount(IQueue queue){
+            
+            if (!(queue==null && queue.customers==null && queue.customers.Length > 0)) {
+              return 0;
+            }
+            return queue.customers.Length;
         }
     }
 }

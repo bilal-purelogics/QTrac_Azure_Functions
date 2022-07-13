@@ -25,5 +25,7 @@ namespace LAVI.QueueManager
         public string DocumentType { get; set; }
         [JsonProperty("servingAgentId")]
         public string servingAgentId { get; set; }
+        [JsonProperty("kioskRequest")]
+        public KioskRequest kioskRequest { get; set; }
     }
 }

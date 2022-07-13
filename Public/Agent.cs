@@ -19,9 +19,9 @@ namespace LAVI.QueueManager
         public int busyTillTimeInMilliseconds { get; set; }
 
         [JsonProperty("customersInServing")]
-        public IQueuedCustomer[] customersInServing { get; set; }
+        public KioskRequest[] customersInServing { get; set; }
         [JsonProperty("customerToBeServed")]
-        public IQueuedCustomer[] customerToBeServed { get; set; }
+        public KioskRequest[] customerToBeServed { get; set; }
 
     }
 }

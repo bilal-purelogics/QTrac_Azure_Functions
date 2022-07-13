@@ -54,6 +54,8 @@ namespace LAVI.QueueManager
 
         [JsonProperty("idleTimeBetweenServices")]
         public int idleTimeBetweenServices { get; set; }
+        [JsonProperty("estimateWaitSettings")]
+        public EstimateWaitTimeMessageRange estimateWaitSettings { get; set; }
     }
 
     public enum CustomerStateInQueue

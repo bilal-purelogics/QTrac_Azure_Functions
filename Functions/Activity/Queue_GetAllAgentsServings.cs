@@ -14,7 +14,7 @@ namespace Lavi.QueueManager
     public static partial class Queue_Activity_ReadQueue
     {
         [FunctionName("Queue-GetAllAgentsServings")]
-        public static async Task<CustomerRequest []> GetAllAgentsServings(
+        public static async Task<KioskRequest []> GetAllAgentsServings(
         [ActivityTrigger] CustomerRequest inputValues,
         [CosmosDB(
         databaseName: "COSMOS_DATABASE",
@@ -32,7 +32,7 @@ namespace Lavi.QueueManager
                 .Where(f => f.pk == inputValues.id && f.type=="user" && f.isOnlineAsAgent==true && f.agentDeskSettings.branchId ==inputValues.branchId).AsEnumerable();
 
             //Need to implement logic yet
-            CustomerRequest [] customerRequest=null;
+            KioskRequest [] customerRequest=null;
             return customerRequest;
         }
 
