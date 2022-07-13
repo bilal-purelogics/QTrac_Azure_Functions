@@ -22,9 +22,18 @@ namespace Lavi.QueueManager
             {
                 CustomerRequest entry = context.GetInput<CustomerRequest>();
                 entry.id = entry.branchId + "_" + entry.workflowId + "_Queue";
-                IQueuedCustomer customer = new IQueuedCustomer() { id = entry.id, serviceId = entry.serviceId, queueId = entry.queueId, customerState = CustomerStateInQueue.WAITING };
+
+                IQueuedCustomer customer = new IQueuedCustomer()
+                {
+                    id = entry.id,
+                    serviceId = entry.serviceId,
+                    queueId = entry.queueId,
+                    customerState = CustomerStateInQueue.WAITING
+                };
+
                 var queue = await context.CallActivityAsync<IQueue>("Queue-ReadWaitingCustomerQueue", entry);
                 IQueue queueResult = new IQueue();
+
                 if (queue != null)
                 {
                     var queuelist = queue.customers.ToList();
@@ -32,9 +41,9 @@ namespace Lavi.QueueManager
                     var queueArray = queuelist.ToArray();
                     queue.customers = queueArray;
                     queueResult = await context.CallActivityAsync<IQueue>("Queue-UpdateWaitingCustomerQueue", queue);
-                    
-                    // Call Update Serving Time Function
-                    //var updateQueue=await UpdateServingTime(context,entry.kioskRequest,queue);
+
+                    // Call Sub Orchestration
+                    var updateQueue = await UpdateServingTime(context, entry.kioskRequest, queue);
                 }
                 else
                 {
@@ -45,82 +54,90 @@ namespace Lavi.QueueManager
                     queueResult.type = entry.DocumentType;
                     queueResult.customers = emptyQueue.ToArray();
                     queueResult = await context.CallActivityAsync<IQueue>("Queue-UpdateWaitingCustomerQueue", queueResult);
-                    
-                    // Call Update Serving Time Function
-                    //var updateQueue=await UpdateServingTime(context,entry.kioskRequest,queue);
+
+                    // Call Sub Orchestration
+                    var updateQueue = await UpdateServingTime(context, entry.kioskRequest, queue);
                 }
+
                 queueUpdated = true;
-            }          
+            }
 
         }
-        private static async Task<IQueue> UpdateServingTime([OrchestrationTrigger] IDurableOrchestrationContext context,KioskRequest kioskRequest,IQueue queue)
+        private static async Task<IQueue> UpdateServingTime([OrchestrationTrigger] IDurableOrchestrationContext context, KioskRequest kioskRequest, IQueue queue)
         {
-            if (kioskRequest.workflow?.incomingWorkflowEstimateWaitSettings?.allowCalculateEstimateWaitTime == false) {
-              return queue;
+            if (kioskRequest.workflow?.incomingWorkflowEstimateWaitSettings?.allowCalculateEstimateWaitTime == false)
+            {
+                return queue;
             }
-            var calculationStartTimeInMilliseconds = (DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1));                    
-            var idleTimeBetweenServicesInMilliseconds =kioskRequest.workflow.incomingWorkflowEstimateWaitSettings.idleTimeBetweenServices * 60 * 1000;
+
+            var calculationStartTimeInMilliseconds = (DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1));
+            var idleTimeBetweenServicesInMilliseconds = kioskRequest.workflow.incomingWorkflowEstimateWaitSettings.idleTimeBetweenServices * 60 * 1000;
             var workflowId = kioskRequest.workflow.workFlowId;
 
-            Agent [] AllOnlineAgents = null;
-            AllOnlineAgents = await context.CallActivityAsync<Agent[]>("Queue-GetAllOnlineAgentInBranch", queue);
-            
-            if (!(AllOnlineAgents ==null && AllOnlineAgents.Length > 0)) {
-                Agent agent = new Agent{agentId="",companyId=kioskRequest.companyId,queueIds=null,busyTillTimeInMilliseconds=0,customersInServing=null,customerToBeServed=null};
-                AllOnlineAgents.Append(agent);
-            }
+            Agent[] allOnlineAgents = null;
+            allOnlineAgents = await context.CallActivityAsync<Agent[]>("Queue-GetAllOnlineAgentInBranch", queue);
 
-            var AllInServingCustomers=await context.CallActivityAsync<KioskRequest[]>("Queue-GetAllAgentsServings", queue);
-            
-            queue.estimatedWaitRangesSettings.estimateWaitSettings=kioskRequest.workflow.incomingWorkflowEstimateWaitSettings.estimateWaitSettings;
-            
-            foreach(var agent in AllOnlineAgents)
+            if (!(allOnlineAgents == null && allOnlineAgents.Length > 0))
             {
-                agent.customersInServing= (KioskRequest[])AllInServingCustomers.Where(x=>x.servingAgentId==agent.agentId);
+                Agent agent = new Agent { agentId = "", companyId = kioskRequest.companyId, queueIds = null, busyTillTimeInMilliseconds = 0, customersInServing = null, customerToBeServed = null };
+                allOnlineAgents.Append(agent);
+            }
 
-                agent.busyTillTimeInMilliseconds=Convert.ToInt32(calculationStartTimeInMilliseconds);
-                foreach(var customer in agent.customersInServing)
+            var AllInServingCustomers = await context.CallActivityAsync<KioskRequest[]>("Queue-GetAllAgentsServings", queue);
+            queue.estimatedWaitRangesSettings.estimateWaitSettings = kioskRequest.workflow.incomingWorkflowEstimateWaitSettings.estimateWaitSettings;
+
+            foreach (var agent in allOnlineAgents)
+            {
+                agent.customersInServing = (KioskRequest[])AllInServingCustomers.Where(x => x.servingAgentId == agent.agentId);
+
+                agent.busyTillTimeInMilliseconds = Convert.ToInt32(calculationStartTimeInMilliseconds);
+                foreach (var customer in agent.customersInServing)
                 {
-                    agent.busyTillTimeInMilliseconds=agent.busyTillTimeInMilliseconds+ QueueManager.GetServiceTimeInMilliseconds(kioskRequest.workflow);
+                    agent.busyTillTimeInMilliseconds = agent.busyTillTimeInMilliseconds + QueueManager.GetServiceTimeInMilliseconds(kioskRequest.workflow);
                 }
             }
 
-            var index = 0;
-            while (QueueManager.GetCustomerCount(queue) > index) {
-                if (AllOnlineAgents.Length == 0) {
-                  break;
+            int index = 0;
+
+            while (QueueManager.GetCustomerCount(queue) > index)
+            {
+                if (allOnlineAgents.Length == 0)
+                {
+                    break;
                 }
-                
-                foreach(var agent in AllOnlineAgents.ToList())
+
+                foreach (var agent in allOnlineAgents.ToList())
                 {
                     var customer = queue.customers[index++];
-                
-                    if (customer==null) {
+
+                    if (customer == null)
+                    {
                         break;
                     }
+
                     var ExpectedServeTime = agent.busyTillTimeInMilliseconds + idleTimeBetweenServicesInMilliseconds;
                     var breakEndTime = QueueManager.GetBreakEndTimeIfThere(ExpectedServeTime);
 
-                    if (breakEndTime !=0) {
-                      ExpectedServeTime += breakEndTime;
+                    if (breakEndTime != 0)
+                    {
+                        ExpectedServeTime += breakEndTime;
                     }
-                    customer.estimateWaitTimeISOString=(ExpectedServeTime.ToString("yyyy-MM-dd'T'HH:mm:ss zzz"));                    
 
-
+                    customer.estimateWaitTimeISOString = (ExpectedServeTime.ToString("yyyy-MM-dd'T'HH:mm:ss zzz"));
                     var ServiceTimeInMilliseconds = QueueManager.GetServiceTimeInMilliseconds(kioskRequest.workflow);
                     agent.busyTillTimeInMilliseconds = ExpectedServeTime + ServiceTimeInMilliseconds;
                 }
             }
-            
 
             IQueue updatedQueue = new IQueue();
             updatedQueue = await context.CallActivityAsync<IQueue>("Queue-UpdateWaitingCustomerQueue", queue);
-            
 
-            if(updatedQueue.estimatedWaitRangesSettings!=null){
+            if (updatedQueue.estimatedWaitRangesSettings != null)
+            {
                 updatedQueue.estimatedWaitRangesSettings.allowCalculateEstimateWaitTime = kioskRequest.workflow.incomingWorkflowEstimateWaitSettings.allowCalculateEstimateWaitTime;
             }
+
             return updatedQueue;
-        }      
+        }
     }
 }
