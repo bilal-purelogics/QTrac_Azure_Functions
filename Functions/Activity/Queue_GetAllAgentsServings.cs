@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LAVI.QueueManager;
@@ -14,8 +15,8 @@ namespace Lavi.QueueManager
     public static partial class Queue_Activity_ReadQueue
     {
         [FunctionName("Queue-GetAllAgentsServings")]
-        public static async Task<KioskRequest []> GetAllAgentsServings(
-        [ActivityTrigger] CustomerRequest inputValues,
+        public static async Task<List<KioskRequest>> GetAllAgentsServings(
+        [ActivityTrigger] KioskRequest inputValues,
         [CosmosDB(
         databaseName: "COSMOS_DATABASE",
         collectionName: "LATCH_TRIGGER_ITEMS_CONTAINER",
@@ -26,14 +27,19 @@ namespace Lavi.QueueManager
             var option = new FeedOptions { PartitionKey = new PartitionKey(inputValues.branchId) };
             var dbName = Environment.GetEnvironmentVariable("COSMOS_DATABASE", EnvironmentVariableTarget.Process);
 
-            var dbContainer = Environment.GetEnvironmentVariable("COSMOS_COMPANY_CONFIGURATIONS_CONTAINER", EnvironmentVariableTarget.Process);
+            var dbContainer = Environment.GetEnvironmentVariable("COSMOS_WAITING_CUSTOMERS_QUEUES_CONTAINER", EnvironmentVariableTarget.Process);
 
-            var users = client.CreateDocumentQuery<UserModel>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.pk == inputValues.id && f.type=="user" && f.isOnlineAsAgent==true && f.agentDeskSettings.branchId ==inputValues.branchId).AsEnumerable();
+            var customers = client.CreateDocumentQuery<KioskRequest>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
+                .Where(f =>f.customerState==CustomerState.SERVING && f.type=="kiosk-request" && f.isDeleted==false && f.servingAgentId=="5275e255-e0a6-4c0c-a930-c27440d8c4bb").AsEnumerable();
+            var customersList=customers.ToList();
+            
+            var servingCustomersList=new List<KioskRequest>();
+            foreach(var customer in customersList)
+            {
+                servingCustomersList.Add(customer);
+            }
 
-            //Need to implement logic yet
-            KioskRequest [] customerRequest=null;
-            return customerRequest;
+            return servingCustomersList;
         }
 
     }

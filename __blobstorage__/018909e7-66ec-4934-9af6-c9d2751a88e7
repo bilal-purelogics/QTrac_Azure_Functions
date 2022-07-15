@@ -1,0 +1,72 @@
+{
+  "masterKey": {
+    "name": "master",
+    "value": "8UfhmoWTMYXRQ4H1R7lZeexE5CxP3W7DHVk4-pZ4kLA_AzFu2M-SeQ==",
+    "encrypted": false
+  },
+  "functionKeys": [
+    {
+      "name": "default",
+      "value": "B95cL2xkqr2M8ZNwPiz2pG1ssW44v-f3PU2Y-n_udcu7AzFuWf09hA==",
+      "encrypted": false
+    }
+  ],
+  "systemKeys": [],
+  "hostName": "localhost:7071",
+  "instanceId": "0000000000000000000000009140346C",
+  "source": "runtime",
+  "decryptionKeyId": ""
+}{
+  "masterKey": {
+    "name": "master",
+    "value": "8UfhmoWTMYXRQ4H1R7lZeexE5CxP3W7DHVk4-pZ4kLA_AzFu2M-SeQ==",
+    "encrypted": false
+  },
+  "functionKeys": [
+    {
+      "name": "default",
+      "value": "B95cL2xkqr2M8ZNwPiz2pG1ssW44v-f3PU2Y-n_udcu7AzFuWf09hA==",
+      "encrypted": false
+    }
+  ],
+  "systemKeys": [
+    {
+      "name": "durabletask_extension",
+      "value": "8hbfx7NrTbMzI6OPDvJuryDB4qeCRl4ooqNXUP8dGny3AzFu76lxMg==",
+      "encrypted": false
+    }
+  ],
+  "hostName": "localhost:7071",
+  "instanceId": "0000000000000000000000009140346C",
+  "source": "runtime",
+  "decryptionKeyId": ""
+}{
+  "masterKey": {
+    "name": "master",
+    "value": "8UfhmoWTMYXRQ4H1R7lZeexE5CxP3W7DHVk4-pZ4kLA_AzFu2M-SeQ==",
+    "encrypted": false
+  },
+  "functionKeys": [
+    {
+      "name": "default",
+      "value": "B95cL2xkqr2M8ZNwPiz2pG1ssW44v-f3PU2Y-n_udcu7AzFuWf09hA==",
+      "encrypted": false
+    }
+  ],
+  "systemKeys": [
+    {
+      "name": "durabletask_extension",
+      "value": "8hbfx7NrTbMzI6OPDvJuryDB4qeCRl4ooqNXUP8dGny3AzFu76lxMg==",
+      "encrypted": false
+    },
+    {
+      "name": "signalr_extension",
+      "value": "-VLPiR0i4HMal3M6rP0mK_cDBOnJ7E9R9uhKMzU9u1hqAzFu7g2dzA==",
+      "encrypted": false
+    }
+  ],
+  "hostName": "localhost:7071",
+  "instanceId": "0000000000000000000000009140346C",
+  "source": "runtime",
+  "decryptionKeyId": ""
+}{}{"TaskHubName":"TestHubName","CreatedAt":"2022-07-15T12:40:36.5258642Z","PartitionCount":4}{"PartitionId":"testhubname-control-01","Owner":null,"Token":null,"Epoch":0}{"OwnerId":"811c9dc5-0000-0000-0000-000000000000","DesiredSwapId":null}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"7d31af0b-bd0d-4ddc-9d5c-5fc0e41d4236","Epoch":1}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"685b43a3-0feb-4b46-aedb-c3bf3724405d","Epoch":1}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"fb0b7204-79cf-48ee-af1a-aaca6b03719d","Epoch":1}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"cd67c55a-3abf-463a-b8b9-c588ab5e9095","Epoch":1}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"a241c0a2-3156-4f35-93de-06afd470df2e","Epoch":1}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"1401cebe-a252-4229-af33-66b17585de28","Epoch":1}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"87b62ad4-0b8f-4987-8ec4-6556b7f891af","Epoch":1}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"3d3a8611-118a-4f34-8361-b4010cdf9a56","Epoch":1}{}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":1}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":1}{}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"08415d4c-2029-4732-a640-815a552c3b24","Epoch":2}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"829c5100-5c9b-490e-a04b-a36b5514f15d","Epoch":2}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"f6e2ec81-58ff-4256-9996-23fdc301faac","Epoch":2}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"fa7362c9-a617-45c2-815a-e996dbad0d7d","Epoch":2}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"6c89e7b6-7271-479b-b7e0-ea6d35827696","Epoch":2}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"080b4084-ddcb-415b-ba39-16af256381f3","Epoch":2}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"42cf0f0b-46cb-441f-8404-458c8e4d30f0","Epoch":2}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"23b56b8e-0bb7-4ef3-9985-81cf69963e80","Epoch":2}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":2}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":2}{}{"PartitionId":"testhubname-control-02","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"a7067a80-cc4c-42c2-9746-d06c9ef372df","Epoch":3}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"d1c1a990-a045-42c7-b93d-6cd5bcca765c","Epoch":3}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"706e001f-a970-4a37-9a9a-5dc268149355","Epoch":3}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"13a11912-91aa-4091-990c-eb04e8e053b4","Epoch":3}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"6530c381-a9a3-40c2-bfe3-d07820eed493","Epoch":3}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"9e42c5ff-0989-4ed0-9fdf-71adc49ef7c1","Epoch":3}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"fb928764-80d7-4bb8-bed2-1a2db4613913","Epoch":3}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"22fd80b7-7ac9-4820-af60-3355fc452ddd","Epoch":3}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"a3d5f999-eab9-47c1-af26-2e27f39977ad","Epoch":4}{"PartitionId":"testhubname-control-02","Owner":null,"Token":null,"Epoch":3}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"649364b3-d467-49cd-abb4-08d411b6f682","Epoch":4}{"PartitionId":"testhubname-control-02","Owner":null,"Token":null,"Epoch":3}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":3}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":3}{}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"8e81e056-6a6e-4228-8550-9a894a90c8ba","Epoch":4}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"4d1588d0-831f-4e02-9b4a-85125c1dc3c1","Epoch":4}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"5c425f38-c857-4c6f-b7ce-bce8e7a29306","Epoch":4}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"409b8d52-c630-43f0-838d-9fa469e05ca0","Epoch":5}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"30161f78-ad53-45e4-b481-c698c650d23d","Epoch":4}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"b931a9dd-9c27-4d43-b385-24abba4412a0","Epoch":4}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":4}{"PartitionId":"testhubname-control-00","Owner":null,"Token":null,"Epoch":5}{}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-02","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"4362d0b3-ac4b-4c4f-a6c5-1be5fb0fd102","Epoch":5}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"d884f724-ee77-45bd-bb56-4da16b34e346","Epoch":5}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"c82dd4cb-2e0d-420f-a068-4e5444d21d7d","Epoch":5}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"ee060b92-f42a-4867-84e4-111536b644d7","Epoch":5}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"53d4e37d-7a6b-4131-a0b4-253be2c13a25","Epoch":6}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"91bfd074-5676-49ca-af1e-8e347f51772f","Epoch":5}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"948054a2-9246-4e58-a035-e414200151c2","Epoch":5}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"971668f4-92d1-474f-ab5b-441dd46e2e9c","Epoch":5}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":5}{"PartitionId":"testhubname-control-03","Owner":null,"Token":null,"Epoch":5}{}{"PartitionId":"testhubname-control-01","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"5c10a208-c225-4caf-a6bb-97e972592219","Epoch":6}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"8171d0f6-ed37-4fe2-ac4a-48d018a840b0","Epoch":6}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"719af4f1-a6f1-4a83-991a-f220127e81fc","Epoch":6}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"70fd7329-a9c3-4b90-a6d5-0343d71ec4d5","Epoch":6}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"86f4b560-cfa7-4f7f-8e7d-607cf1a44c29","Epoch":7}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"0c42257c-7cec-403a-8240-64731258944c","Epoch":6}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"f86ab7da-c0f8-484f-a9a7-e5ee16bd362d","Epoch":6}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"97ad4c42-fbfd-4b9d-bfd7-a836692ed657","Epoch":6}{"PartitionId":"testhubname-control-01","Owner":null,"Token":null,"Epoch":6}{"PartitionId":"testhubname-control-01","Owner":null,"Token":null,"Epoch":6}{}{"PartitionId":"testhubname-control-01","Owner":null,"Token":null,"Epoch":0}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"7b5b304c-bd7e-4f53-88da-999e8cd2928b","Epoch":7}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"87b967d5-55d4-4990-bd35-105549b4c84a","Epoch":7}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"b27ca5b4-6a6d-4af3-896b-6fb4250b8c9f","Epoch":7}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"42007277-03e2-4caf-8973-c31d2024cb6e","Epoch":7}{"PartitionId":"testhubname-control-00","Owner":"DESKTOP-BHRTHPD","Token":"850fe747-442f-425f-8702-ef88be622ea2","Epoch":8}{"PartitionId":"testhubname-control-01","Owner":"DESKTOP-BHRTHPD","Token":"6307073c-414a-4c5a-b068-fc5719ac1b6f","Epoch":7}{"PartitionId":"testhubname-control-02","Owner":"DESKTOP-BHRTHPD","Token":"6d246203-8c2f-4aaa-b089-b4cea82febc9","Epoch":7}{"PartitionId":"testhubname-control-03","Owner":"DESKTOP-BHRTHPD","Token":"30d45374-f765-49ed-9ae8-ce8cfd3d8373","Epoch":7}

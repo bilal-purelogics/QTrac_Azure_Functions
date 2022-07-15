@@ -11,26 +11,26 @@ namespace Lavi.QueueManager
             return workflow.services.averageWaitTime * 60 * 100;
         }
 
-        public static int GetBreakEndTimeIfThere(int expectedServeTime)
+        public static double GetBreakEndTimeIfThere(double expectedServeTime)
         {
             return 0;
         }
-        public static Agent MapUserToAgent(UserModel user, IEnumerable<UserRole> userRoles)
+        public static Agent MapUserToAgent(UserModel user, UserRole userRoles)
         {
             Agent agent=null;
-            if(user.isOverride)
+            if(user.IsOverride!=null)
             {
-                agent=new Agent{agentId=user.id,companyId=user.companyId,busyTillTimeInMilliseconds=0,customersInServing=null,queueIds=null};
+                agent=new Agent{agentId=user.Id,companyId=user.CompanyId,busyTillTimeInMilliseconds=0,customersInServing=null,queueIds=userRoles.agentTemplates[0].Queues};
             }
             else
             {
-                agent=new Agent{agentId=user.id,companyId=user.companyId,busyTillTimeInMilliseconds=0,customersInServing=null,queueIds=null};
+                agent=new Agent{agentId=user.Id,companyId=user.CompanyId,busyTillTimeInMilliseconds=0,customersInServing=null,queueIds=userRoles.agentTemplates[0].Queues};
             }
             return agent;
         }
         public static int GetCustomerCount(IQueue queue){
             
-            if (!(queue==null && queue.customers==null && queue.customers.Length > 0)) {
+            if (queue.customers.Length <= 0) {
               return 0;
             }
             return queue.customers.Length;

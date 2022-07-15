@@ -20,14 +20,7 @@ namespace Lavi.QueueManager
         {
 
             var data = await req.Content.ReadAsAsync<CustomerRequest>();
-            await client.StartNewAsync("Queue-ReadWriteQueueDocument", new CustomerRequest()
-            {
-                id = data.id,
-                branchId = data.branchId,
-                workflowId = data.workflowId,
-                serviceId = data.serviceId,
-                queueId = data.queueId
-            });
+            await client.StartNewAsync("Queue-ReadWriteQueueDocument", data);
 
             return req.CreateResponse(System.Net.HttpStatusCode.Accepted);
         }

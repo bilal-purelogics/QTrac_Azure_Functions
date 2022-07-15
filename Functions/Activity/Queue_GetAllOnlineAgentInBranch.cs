@@ -15,38 +15,43 @@ namespace Lavi.QueueManager
     public static partial class Queue_Activity_ReadQueue
     {
         [FunctionName("Queue-GetAllOnlineAgentInBranch")]
-        public static async Task<Agent []> GetAllOnlineAgentInBranch(
-        [ActivityTrigger] CustomerRequest inputValues,
+        public static async Task<List<Agent>> GetAllOnlineAgentInBranch(
+        [ActivityTrigger] KioskRequest inputValues,
         [CosmosDB(
         databaseName: "COSMOS_DATABASE",
-        collectionName: "LATCH_TRIGGER_ITEMS_CONTAINER",
+        collectionName: "COSMOS_COMPANY_CONFIGURATIONS_CONTAINER",
         ConnectionStringSetting = "COSMOS_CONNECTION_STRING"
         )] DocumentClient client,
         ILogger log)
         {
-            var option = new FeedOptions { PartitionKey = new PartitionKey(inputValues.branchId) };
+            var option = new FeedOptions{ PartitionKey = new PartitionKey(inputValues.companyId) };
             var dbName = Environment.GetEnvironmentVariable("COSMOS_DATABASE", EnvironmentVariableTarget.Process);
 
             var dbContainer = Environment.GetEnvironmentVariable("COSMOS_COMPANY_CONFIGURATIONS_CONTAINER", EnvironmentVariableTarget.Process);
 
             var users = client.CreateDocumentQuery<UserModel>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.pk == inputValues.id && f.type=="user" && f.isOnlineAsAgent==true && f.agentDeskSettings.branchId ==inputValues.branchId).AsEnumerable();
+                .Where(f => f.Pk == inputValues.companyId && f.Type == "user" && f.IsOnlineAsAgent == true && f.AgentDeskSettings.branchId == inputValues.branchId).AsEnumerable();
+            
+            
+            var userList=users.ToList();
 
-            var rolesToFetchIfAny = users.Where(user => !user.isOverride).Select(user=>user.roleId);
+            
+            var rolesToFetchIfAny = userList.Select(user=>user.RoleId).ToArray();
 
 
             var UserRoles = client.CreateDocumentQuery<UserRole>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.type=="UserRole" && f.roleId.Equals(rolesToFetchIfAny)).AsEnumerable();
+                .Where(f =>  f.pk == inputValues.companyId && f.type=="UserRole" && rolesToFetchIfAny.Contains(f.roleId)).AsEnumerable();
             
-            var userList= users.ToList();
+            var UserRolesList= UserRoles.FirstOrDefault();
             
-            Agent[] agents=null;
+            var agentList=new List<Agent>();
             foreach(var item in userList)
             {
-              QueueManager.MapUserToAgent(item,UserRoles);
+               agentList.Add(QueueManager.MapUserToAgent(item,UserRolesList));
+               
             }
 
-            return  agents;
+            return  agentList;
 
         }
 
