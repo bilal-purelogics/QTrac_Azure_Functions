@@ -17,7 +17,7 @@ namespace LAVI.QueueManager
 
         [JsonProperty("companyId")]
         public string companyId { get; set; }
-        
+
         [JsonProperty("roleId")]
         public string roleId { get; set; }
         [JsonProperty("roleName")]
@@ -37,8 +37,9 @@ namespace LAVI.QueueManager
         [JsonProperty("updatedBy")]
         public string updatedBy { get; set; }
     }
-    
-    public partial class RoleAction {
+
+    public partial class RoleAction
+    {
 
         [JsonProperty("type")]
         public string Type;
@@ -56,8 +57,9 @@ namespace LAVI.QueueManager
         public string Id;
 
     }
-    
-    public partial class UserRoleAction {
+
+    public partial class UserRoleAction
+    {
 
         [JsonProperty("actionName")]
         public string ActionName;
@@ -78,8 +80,9 @@ namespace LAVI.QueueManager
         public bool? Run;
 
     }
-    
-    public class AgentTemplateLookup {
+
+    public class AgentTemplateLookup
+    {
 
         [JsonProperty("agentId")]
         public string AgentId;
@@ -88,7 +91,7 @@ namespace LAVI.QueueManager
         public string[] Queues;
 
     }
-    
-    
-    
+
+
+
 }
