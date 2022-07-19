@@ -23,11 +23,11 @@ namespace LAVI.QueueManager
 
         [JsonProperty("DocumentType")]
         public string DocumentType { get; set; }
-        
+
         [JsonProperty("servingAgentId")]
         public string servingAgentId { get; set; }
 
-        [JsonProperty("kioskRequest")]
-        public KioskRequest kioskRequest { get; set; }
+        [JsonProperty("workflow")]
+        public Workflow workflow { get; set; }
     }
 }

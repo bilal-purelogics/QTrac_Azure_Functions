@@ -23,7 +23,7 @@ namespace Lavi.QueueManager
         )] DocumentClient client,
         ILogger log)
         {
-
+            
             var entry = context.GetInput<IQueue>();
 
             var dbName = Environment.GetEnvironmentVariable("COSMOS_DATABASE", EnvironmentVariableTarget.Process);
