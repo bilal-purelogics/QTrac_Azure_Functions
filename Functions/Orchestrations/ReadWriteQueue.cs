@@ -47,7 +47,7 @@ namespace Lavi.QueueManager
                         queueResult = await context.CallActivityAsync<IQueue>("Queue-UpdateWaitingCustomerQueue", queue);
 
                         // Call Sub Orchestration
-                        updateQueue = await UpdateServingTime(context, entry.workflow, queue);
+                        updateQueue = await UpdateServingTime(context, entry, queue);
 
                     }
                     else
@@ -61,7 +61,7 @@ namespace Lavi.QueueManager
                         queueResult = await context.CallActivityAsync<IQueue>("Queue-UpdateWaitingCustomerQueue", queueResult);
 
                         // Call Sub Orchestration
-                        updateQueue = await UpdateServingTime(context, entry.workflow, queue);
+                        updateQueue = await UpdateServingTime(context, entry, queue);
 
                     }
 
@@ -79,30 +79,30 @@ namespace Lavi.QueueManager
             return updateQueue;
         }
 
-        private static async Task<IQueue> UpdateServingTime([OrchestrationTrigger] IDurableOrchestrationContext context, Workflow workflow, IQueue queue)
+        private static async Task<IQueue> UpdateServingTime([OrchestrationTrigger] IDurableOrchestrationContext context, CustomerRequest customerRequest, IQueue queue)
         {
-            if (workflow?.incomingWorkflowEstimateWaitSettings?.allowCalculateEstimateWaitTime == false)
+            if (customerRequest.workflow?.estimateWaitSettings?.allowCalculateEstimateWaitTime == false)
             {
                 return queue;
             }
 
 
             double calculationStartTimeInMilliseconds = Convert.ToInt64((DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds);
-            var idleTimeBetweenServicesInMilliseconds = workflow.incomingWorkflowEstimateWaitSettings.idleTimeBetweenServices * 60 * 1000;
-            var workflowId = workflow.workFlowId;
+            var idleTimeBetweenServicesInMilliseconds = customerRequest.workflow.estimateWaitSettings.idleTimeBetweenServices * 60 * 1000;
+            var workflowId = customerRequest.workflow.WorkFlowId;
 
             var allOnlineAgents = new List<Agent>();
-            allOnlineAgents = await context.CallActivityAsync<List<Agent>>("Queue-GetAllOnlineAgentInBranch", workflow);
+            allOnlineAgents = await context.CallActivityAsync<List<Agent>>("Queue-GetAllOnlineAgentInBranch", customerRequest);
 
             if (allOnlineAgents == null)
             {
-                Agent agent = new Agent { agentId = "", companyId = workflow.companyId, queueIds = null, busyTillTimeInMilliseconds = 0, customersInServing = null, customerToBeServed = null };
+                Agent agent = new Agent { agentId = "", companyId = customerRequest.workflow.companyId, queueIds = null, busyTillTimeInMilliseconds = 0, customersInServing = null, customerToBeServed = null };
 
                 allOnlineAgents.Append(agent);
             }
 
-            var AllInServingCustomers = await context.CallActivityAsync<List<KioskRequest>>("Queue-GetAllAgentsServings", workflow);
-            queue.estimatedWaitRangesSettings.estimateWaitSettings = workflow.incomingWorkflowEstimateWaitSettings.estimateWaitSettings;
+            var AllInServingCustomers = await context.CallActivityAsync<List<KioskRequest>>("Queue-GetAllAgentsServings", customerRequest);
+            //queue.estimatedWaitRangesSettings.estimateWaitSettings = customerRequest.workflow.estimateWaitSettings.customRangesForTimeDisplayMessages[0];
 
             foreach (var agent in allOnlineAgents)
             {
@@ -113,7 +113,7 @@ namespace Lavi.QueueManager
                     foreach (var customer in agent.customersInServing)
                     {
                         
-                        agent.busyTillTimeInMilliseconds = agent.busyTillTimeInMilliseconds + QueueManager.GetServiceTimeInMilliseconds(workflow,customer.serviceId);
+                        agent.busyTillTimeInMilliseconds = agent.busyTillTimeInMilliseconds + QueueManager.GetServiceTimeInMilliseconds(customerRequest.workflow,customer.serviceId);
 
                     }
                 }
@@ -150,7 +150,7 @@ namespace Lavi.QueueManager
                     }
                     customer.estimateWaitTimeISOString = new DateTime(1970, 1, 1).AddMilliseconds(ExpectedServeTime).ToString();
 
-                    var ServiceTimeInMilliseconds = QueueManager.GetServiceTimeInMilliseconds(workflow,customer.serviceId);
+                    var ServiceTimeInMilliseconds = QueueManager.GetServiceTimeInMilliseconds(customerRequest.workflow,customer.serviceId);
                     agent.busyTillTimeInMilliseconds = ExpectedServeTime + ServiceTimeInMilliseconds;
 
                 }
@@ -161,7 +161,7 @@ namespace Lavi.QueueManager
 
             if (updatedQueue.estimatedWaitRangesSettings != null)
             {
-                updatedQueue.estimatedWaitRangesSettings.allowCalculateEstimateWaitTime = workflow.incomingWorkflowEstimateWaitSettings.allowCalculateEstimateWaitTime;
+                updatedQueue.estimatedWaitRangesSettings.allowCalculateEstimateWaitTime = customerRequest.workflow.estimateWaitSettings.allowCalculateEstimateWaitTime;
             }
             return updatedQueue;
         }

@@ -18,8 +18,8 @@ namespace LAVI.QueueManager
         [JsonProperty("idleTimeBetweenServices")]
         public int idleTimeBetweenServices { get; set; }
 
-        [JsonProperty("estimateWaitSettings")]
-        public EstimateWaitTimeMessageRange estimateWaitSettings { get; set; }
+        [JsonProperty("customRangesForTimeDisplayMessages")]
+        public EstimateWaitTimeMessageRange[] customRangesForTimeDisplayMessages { get; set; }
     }
 
     public partial class EstimateWaitTimeMessageRange
@@ -32,7 +32,7 @@ namespace LAVI.QueueManager
         public int to { get; set; }
 
         [JsonProperty("messages")]
-        public Translations messages { get; set; }
+        public Translations[] messages { get; set; }
     }
 
     public partial class Translations

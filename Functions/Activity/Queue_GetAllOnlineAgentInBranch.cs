@@ -27,10 +27,10 @@ namespace Lavi.QueueManager
             var option = new FeedOptions { PartitionKey = new PartitionKey(inputValues.workflow.companyId) };
             var dbName = Environment.GetEnvironmentVariable("COSMOS_DATABASE", EnvironmentVariableTarget.Process);
 
-            var dbContainer = Environment.GetEnvironmentVariable("COSMOSP_COMPANY_CONFIGURATIONS_CONTAINER", EnvironmentVariableTarget.Process);
+            var dbContainer = Environment.GetEnvironmentVariable("COSMOS_COMPANY_CONFIGURATIONS_CONTAINER", EnvironmentVariableTarget.Process);
 
             var users = client.CreateDocumentQuery<UserModel>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.Pk == inputValues.workflow.companyId && f.Type == "user" && f.IsOnlineAsAgent == true && f.AgentDeskSettings.branchId == inputValues.branchId).AsEnumerable();
+                .Where(f => f.pk == inputValues.workflow.companyId && f.Type == "user" && f.isOnlineAsAgent == true && f.AgentDeskSettings.branchId == inputValues.branchId).AsEnumerable();
 
 
             var userList = users.ToList();

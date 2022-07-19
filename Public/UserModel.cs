@@ -7,13 +7,13 @@ namespace LAVI.QueueManager
     {
 
         [JsonProperty("pk")]
-        public string Pk;
+        public string pk;
 
         [JsonProperty("type")]
         public string Type;
 
         [JsonProperty("companyId")]
-        public string CompanyId;
+        public string companyId;
 
         [JsonProperty("id")]
         public string Id;
@@ -88,7 +88,7 @@ namespace LAVI.QueueManager
         public string UpdatedBy;
 
         [JsonProperty("isOnlineAsAgent")]
-        public bool? IsOnlineAsAgent;
+        public bool? isOnlineAsAgent;
 
         [JsonProperty("agentDeskSettings")]
         public AgentDeskSettings AgentDeskSettings;

@@ -8,14 +8,15 @@ namespace Lavi.QueueManager
 
     public static partial class QueueManager
     {
-        public static int GetServiceTimeInMilliseconds(Workflow workflow,string serviceId)
+        public static int GetServiceTimeInMilliseconds(Workflow workflow, string serviceId)
         {
-            var averageWaitTime=workflow.services.ToList().Where(x=>x.ServiceId==serviceId).Select(x=>x.averageWaitTime);
-            if(averageWaitTime==null)
-            {
-                return 0;
-            }
-            return Convert.ToInt32(averageWaitTime ) * 60 * 100;
+            var averageWaitTime = workflow.services.ToList().Where(x => x.ServiceId == serviceId).Select(x => x.averageWaitTime);
+            
+            //if (averageWaitTime != null)
+            //{
+            //    return Convert.ToInt32(averageWaitTime) * 60 * 100;
+            //}
+            return 0;
         }
 
         public static double GetBreakEndTimeIfThere(double expectedServeTime)
@@ -27,11 +28,11 @@ namespace Lavi.QueueManager
             Agent agent = null;
             if (user.IsOverride != null)
             {
-                agent = new Agent { agentId = user.Id, companyId = user.CompanyId, busyTillTimeInMilliseconds = 0, customersInServing = null, queueIds = userRoles.agentTemplates[0].Queues };
+                agent = new Agent { agentId = user.Id, companyId = user.companyId, busyTillTimeInMilliseconds = 0, customersInServing = null, queueIds = userRoles.agentTemplates[0].Queues };
             }
             else
             {
-                agent = new Agent { agentId = user.Id, companyId = user.CompanyId, busyTillTimeInMilliseconds = 0, customersInServing = null, queueIds = userRoles.agentTemplates[0].Queues };
+                agent = new Agent { agentId = user.Id, companyId = user.companyId, busyTillTimeInMilliseconds = 0, customersInServing = null, queueIds = userRoles.agentTemplates[0].Queues };
             }
             return agent;
         }

@@ -181,16 +181,52 @@ namespace LAVI.QueueManager
     }
     public partial class Workflow
     {
+        [JsonProperty("id")]
+        public string Id;
+
+        [JsonProperty("pk")]
+        public string Pk;
+
         [JsonProperty("workFlowId")]
-        public string workFlowId { get; set; }
+        public string WorkFlowId;
+
+        [JsonProperty("name")]
+        public string Name;
+
         [JsonProperty("companyId")]
-        public string companyId { get; set; }
-        [JsonProperty("incomingWorkflowEstimateWaitSettings")]
-        public IncomingWorkflowEstimateWaitSettings incomingWorkflowEstimateWaitSettings { get; set; }
+        public string companyId;
+
+        [JsonProperty("isPublished")]
+        public bool IsPublished;
+        [JsonProperty("estimateWaitSettings")]
+        public IncomingWorkflowEstimateWaitSettings estimateWaitSettings { get; set; }
         [JsonProperty("services")]
         public Services[] services { get; set; }
         [JsonProperty("queue")]
         public Queue[] queue { get; set; }
+        [JsonProperty("createdAt")]
+        public string CreatedAt;
+
+        [JsonProperty("updatedAt")]
+        public string UpdatedAt;
+
+        [JsonProperty("createdBy")]
+        public string CreatedBy;
+
+        [JsonProperty("updatedBy")]
+        public string UpdatedBy;
+
+        [JsonProperty("type")]
+        public string Type;
+
+        [JsonProperty("isDeleted")]
+        public bool IsDeleted;
+
+        [JsonProperty("defaultPriority")]
+        public int DefaultPriority;
+
+        [JsonProperty("enablePriority")]
+        public bool EnablePriority;
 
     }
     public partial class Services

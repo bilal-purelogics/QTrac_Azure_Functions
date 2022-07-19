@@ -13,16 +13,16 @@ namespace Lavi.QueueManager
     {
 
         [FunctionName("Queue-AddToQueueTrigger")]
-        public static async Task<HttpResponseMessage> AddToQueueTrigger(
+        public static async Task<IQueue> AddToQueueTrigger(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "QueueManager/AddToQueueTrigger")] HttpRequestMessage req,
         [DurableClient] IDurableOrchestrationClient client,
         ILogger log)
         {
 
             var data = await req.Content.ReadAsAsync<CustomerRequest>();
-            await client.StartNewAsync("Queue-ReadWriteQueueDocument", data);
+            IQueue queue= await client.StartNewAsync("Queue-ReadWriteQueueDocument", data);
 
-            return req.CreateResponse(System.Net.HttpStatusCode.Accepted);
+            return queue;
         }
 
     }

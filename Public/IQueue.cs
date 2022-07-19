@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 
 
@@ -21,6 +22,10 @@ namespace LAVI.QueueManager
         [JsonProperty("estimatedWaitRangesSettings")]
         public estimatedWaitRangesSettings estimatedWaitRangesSettings { get; set; }
 
+        public static implicit operator IQueue(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public partial class IQueuedCustomer
