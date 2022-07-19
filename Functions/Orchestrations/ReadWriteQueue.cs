@@ -6,6 +6,7 @@ using LAVI.QueueManager;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Lavi.QueueManager
 {
@@ -19,6 +20,7 @@ namespace Lavi.QueueManager
         {
             bool queueUpdated = false;
             IQueue updateQueue = new IQueue();
+            
             while (!queueUpdated)
             {
                 try
@@ -64,6 +66,8 @@ namespace Lavi.QueueManager
                         updateQueue = await UpdateServingTime(context, entry, queue);
 
                     }
+
+                    await context.CallActivityAsync<IQueue>("activity-trigger-signalr-on-update-queue", updateQueue);
 
                     queueUpdated = true;
 
