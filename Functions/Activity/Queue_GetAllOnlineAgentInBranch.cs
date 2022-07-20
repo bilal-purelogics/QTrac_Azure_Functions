@@ -16,7 +16,7 @@ namespace Lavi.QueueManager
     {
         [FunctionName("Queue-GetAllOnlineAgentInBranch")]
         public static async Task<List<Agent>> GetAllOnlineAgentInBranch(
-        [ActivityTrigger] CustomerRequest inputValues,
+        [ActivityTrigger] CustomerRequest customerReq,
         [CosmosDB(
         databaseName: "COSMOS_DATABASE",
         collectionName: "COSMOS_COMPANY_CONFIGURATIONS_CONTAINER",
@@ -24,13 +24,13 @@ namespace Lavi.QueueManager
         )] DocumentClient client,
         ILogger log)
         {
-            var option = new FeedOptions { PartitionKey = new PartitionKey(inputValues.workflow.companyId) };
+            var option = new FeedOptions { PartitionKey = new PartitionKey(customerReq.workflow.companyId) };
             var dbName = Environment.GetEnvironmentVariable("COSMOS_DATABASE", EnvironmentVariableTarget.Process);
 
             var dbContainer = Environment.GetEnvironmentVariable("COSMOS_COMPANY_CONFIGURATIONS_CONTAINER", EnvironmentVariableTarget.Process);
 
             var users = client.CreateDocumentQuery<UserModel>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.pk == inputValues.workflow.companyId && f.Type == "user" && f.isOnlineAsAgent == true && f.AgentDeskSettings.branchId == inputValues.branchId).AsEnumerable();
+                .Where(f => f.pk == customerReq.workflow.companyId && f.Type == "user" && f.isOnlineAsAgent == true && f.AgentDeskSettings.branchId == customerReq.branchId).AsEnumerable();
 
 
             var userList = users.ToList();
@@ -40,15 +40,15 @@ namespace Lavi.QueueManager
 
 
             var UserRoles = client.CreateDocumentQuery<UserRole>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.pk == inputValues.workflow.companyId && f.type == "UserRole" && rolesToFetchIfAny.Contains(f.roleId)).AsEnumerable();
+                .Where(f => f.pk == customerReq.workflow.companyId && f.type == "UserRole" && rolesToFetchIfAny.Contains(f.roleId)).AsEnumerable();
 
             var UserRolesList = UserRoles.FirstOrDefault();
 
             var agentList = new List<Agent>();
+
             foreach (var item in userList)
             {
                 agentList.Add(QueueManager.MapUserToAgent(item, UserRolesList));
-
             }
 
             return agentList;

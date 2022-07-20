@@ -197,13 +197,17 @@ namespace LAVI.QueueManager
         public string companyId;
 
         [JsonProperty("isPublished")]
-        public bool IsPublished;
+        public bool? IsPublished { get; set; }
+
         [JsonProperty("estimateWaitSettings")]
         public IncomingWorkflowEstimateWaitSettings estimateWaitSettings { get; set; }
+
         [JsonProperty("services")]
         public Services[] services { get; set; }
+
         [JsonProperty("queue")]
         public Queue[] queue { get; set; }
+        
         [JsonProperty("createdAt")]
         public string CreatedAt;
 

@@ -21,9 +21,6 @@ namespace LAVI.QueueManager
         [JsonProperty("queueId")]
         public string queueId { get; set; }
 
-        [JsonProperty("DocumentType")]
-        public string DocumentType { get; set; }
-
         [JsonProperty("servingAgentId")]
         public string servingAgentId { get; set; }
 

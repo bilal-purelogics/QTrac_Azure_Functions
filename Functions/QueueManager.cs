@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using LAVI.QueueManager;
 
@@ -10,13 +9,19 @@ namespace Lavi.QueueManager
     {
         public static int GetServiceTimeInMilliseconds(Workflow workflow, string serviceId)
         {
-            var averageWaitTime = workflow.services.ToList().Where(x => x.ServiceId == serviceId).Select(x => x.averageWaitTime);
+            var service = workflow.services.Where(x => x.ServiceId == serviceId).FirstOrDefault();
             
-            //if (averageWaitTime != null)
-            //{
-            //    return Convert.ToInt32(averageWaitTime) * 60 * 100;
-            //}
+            if (service != null)
+            {
+               return Convert.ToInt32(service.averageWaitTime) * 60 * 100;
+            }
             return 0;
+        }
+
+        public static string GetIdValueForQueueDocument(string branchId, string workflowId)
+        {
+             string id = branchId + "_" + workflowId + "_Queue";
+             return id;
         }
 
         public static double GetBreakEndTimeIfThere(double expectedServeTime)

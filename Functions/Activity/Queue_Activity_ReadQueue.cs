@@ -15,7 +15,7 @@ namespace Lavi.QueueManager
     {
         [FunctionName("Queue-ReadWaitingCustomerQueue")]
         public static async Task<IQueue> GetWaitingCustomerQueue(
-        [ActivityTrigger] CustomerRequest inputValues,
+        [ActivityTrigger] CustomerRequest customerReq,
         [CosmosDB(
         databaseName: "COSMOS_DATABASE",
         collectionName: "LATCH_TRIGGER_ITEMS_CONTAINER",
@@ -23,13 +23,13 @@ namespace Lavi.QueueManager
         )] DocumentClient client,
         ILogger log)
         {
-            var option = new FeedOptions { PartitionKey = new PartitionKey(inputValues.branchId) };
+            var option = new FeedOptions { PartitionKey = new PartitionKey(customerReq.branchId) };
             var dbName = Environment.GetEnvironmentVariable("COSMOS_DATABASE", EnvironmentVariableTarget.Process);
 
             var dbContainer = Environment.GetEnvironmentVariable("COSMOS_WAITING_CUSTOMERS_QUEUES_CONTAINER", EnvironmentVariableTarget.Process);
 
             var items = client.CreateDocumentQuery<IQueue>(UriFactory.CreateDocumentCollectionUri(dbName, dbContainer), option)
-                .Where(f => f.pk == inputValues.branchId && f.type == "queue" && f.id == inputValues.id).AsEnumerable();
+                .Where(f => f.pk == customerReq.branchId && f.type == "queue" && f.id == customerReq.id).AsEnumerable();
 
             var data = items.FirstOrDefault();
 
